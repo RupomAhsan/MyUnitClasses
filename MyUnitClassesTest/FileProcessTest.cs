@@ -24,7 +24,7 @@ namespace MyUnitClassesTest
             FileProcess fp = new FileProcess();
             bool fromCall;
 
-            fromCall = fp.FileExists(@"C:\WrongFileName.wrong");
+            fromCall = fp.FileExists(@"C:\WrongFileName.Wrong");
 
             Assert.IsFalse(fromCall);
         }
