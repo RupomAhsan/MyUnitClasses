@@ -1,20 +1,27 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MyUnitClasses;
+using System.Configuration;
+using System.IO;
 
 namespace MyUnitClassesTest
 {
     [TestClass]
     public class FileProcessTest
     {
+        private const string BAD_FILE_NAME = @"C:\WrongFileName.Wrong";
+        private string _GoodFileName;
+
         [TestMethod]
         public void FileNameDoesExists()
         {
             FileProcess fp = new FileProcess();
             bool fromCall;
 
-            fromCall = fp.FileExists(@"C:\Windows\Regedit.exe");
-
+            SetGoodFileName();
+            File.AppendAllText(_GoodFileName, "Lovely World!");
+            fromCall = fp.FileExists(_GoodFileName);
+            File.Delete(_GoodFileName);
             Assert.IsTrue(fromCall);
         }
 
@@ -24,7 +31,7 @@ namespace MyUnitClassesTest
             FileProcess fp = new FileProcess();
             bool fromCall;
 
-            fromCall = fp.FileExists(@"C:\WrongFileName.Wrong");
+            fromCall = fp.FileExists(BAD_FILE_NAME);
 
             Assert.IsFalse(fromCall);
         }
@@ -53,6 +60,16 @@ namespace MyUnitClassesTest
 
             Assert.Fail("Call to file FileExists did NOT thrw an ArgumentNUllException.");
 
+        }
+
+        public void SetGoodFileName()
+        {
+            _GoodFileName = ConfigurationManager.AppSettings["GoodFileName"];
+            if (_GoodFileName.Contains("[AppPath]"))
+            {
+                _GoodFileName = _GoodFileName.Replace("[AppPath]",
+                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData));
+            }
         }
     }
 }
