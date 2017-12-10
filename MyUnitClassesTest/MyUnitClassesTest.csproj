@@ -59,6 +59,7 @@
     <Compile Include="AssertClassTest.cs" />
     <Compile Include="StringAssertClassTest.cs" />
     <Compile Include="CollectionAssertClassTest.cs" />
+    <Compile Include="PersonManagerTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyUnitClasses\MyUnitClasses.csproj">
