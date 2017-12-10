@@ -28,5 +28,25 @@ namespace MyUnitClasses.PersonClasses
 
             return ret;
         }
+
+        public List<Person> GetPeople()
+        {
+            List<Person> people = new List<Person>();
+
+            people.Add(new Person { FirstName = "Rupom", LastName = "Ahsan" });
+            people.Add(new Person { FirstName = "Maisha", LastName = "Ashnoor" });
+
+            return people;
+        }
+
+        public List<Person> GetSupervisors()
+        {
+            List<Person> people = new List<Person>();
+
+            people.Add(CreatePerson("Rupom","Ahsan",true ));
+            people.Add(CreatePerson("Maisha", "Ashnoor", true));
+
+            return people;
+        }
     }
 }

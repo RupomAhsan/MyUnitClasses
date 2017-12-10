@@ -84,6 +84,7 @@ namespace MyUnitClassesTest
         [Owner("Rupom")]
         [Priority(0)]
         [TestCategory("NoException")]
+        [Ignore()]
         public void FileNameDoesExistSimnpleMessage()
         {
             FileProcess fp = new FileProcess();
@@ -98,6 +99,7 @@ namespace MyUnitClassesTest
         [Owner("Rupom")]
         [Priority(0)]
         [TestCategory("NoException")]
+        [Ignore()]
         public void FileNameDoesExistMessage()
         {
             FileProcess fp = new FileProcess();
@@ -167,6 +169,7 @@ namespace MyUnitClassesTest
 
         [TestMethod]
         [Timeout(3000)]
+        [Ignore()]
         public void SimulateTimeOut()
         {
             System.Threading.Thread.Sleep(4000);
