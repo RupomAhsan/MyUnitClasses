@@ -195,5 +195,43 @@ namespace MyUnitClassesTest
             Assert.IsTrue(fromCall);
         }
 
+
+        [TestMethod]
+        [DataSource(
+            "System.Data.SqlClient",
+            "Data Source=.\\SQLEXPRESS;Initial Catalog=tests;Integrated Security=Yes",
+            "FileProcessTest",
+            DataAccessMethod.Sequential)]
+        public void FileExistsTestFromDB()
+        {
+            FileProcess fp = new FileProcess();
+            string fileName;
+            bool expectedValue;
+            bool causesException;
+            bool fromCall;
+
+            //Get values from data row
+            fileName = TestContext.DataRow["FileName"].ToString();
+            expectedValue = Convert.ToBoolean(TestContext.DataRow["ExpectedValue"]);
+            causesException = Convert.ToBoolean(TestContext.DataRow["CausesException"]);
+
+            // Check assertion
+            try
+            {
+                fromCall = fp.FileExists(fileName);
+                Assert.AreEqual(expectedValue, fromCall, "File Name: " + fileName +
+                    " has failed it's existence test in test: FileExistsTestFromDB()");
+            }
+            catch (AssertFailedException ex)
+            {
+                // Rethrow assertion
+                throw ex;
+            }
+            catch (ArgumentNullException)
+            {
+                // See if method was expected to throw an exception
+                Assert.IsTrue(causesException);
+            }
+        }
     }
 }
